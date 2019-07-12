@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { BatteryStatus } from '@ionic-native/battery-status'
-import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors/ngx'
+import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors'
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 
 @NgModule({

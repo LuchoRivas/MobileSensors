@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { BatteryStatus } from '@ionic-native/battery-status';
-import { Sensors } from '@ionic-native/sensors/ngx';
+import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 
 declare var sensors;
@@ -14,7 +14,7 @@ declare var sensors;
 export class HomePage {
 
   value: any;
-  sensorName : any;
+  sensorName : string;
   error : any;
   logo:string;
   stat:any;
@@ -26,94 +26,123 @@ export class HomePage {
     private batteryStatus: BatteryStatus, 
     private sensors:Sensors,
     private geolocation:Geolocation
-    ) {
-    this.value;
-    this.logo = "https://pluma.binit.cloud/assets/Binit/images/logos/logo.png"
+    ) 
+    {
+      this.value;
+      this.logo = "https://pluma.binit.cloud/assets/Binit/images/logos/logo.png"
     
     // platform.ready().then(() => {
     //   this.initSensor();
     // })
-
   }
 
   //Sensor de Luz
   initLightSensor() 
   {
-    sensors.disableSensor();
 
-    sensors.enableSensor("LIGHT");
-    this.sensorName = "LIGHT";
     this.value = 0;
-    
+    this.sensors.disableSensor();
+    this.sensorName = TYPE_SENSOR.LIGHT;
+    this.sensors.enableSensor(TYPE_SENSOR.LIGHT);
+
+
     setInterval(() => 
     {
-      sensors.getState((values) => { this.value =  values; }
-
-     );
-    
-      
+      this.sensors.getState().then((resp) => 
+    {
+      console.log(resp);
+      this.value = resp;
+      }).catch((error) => 
+      {
+        console.log('Error', error);
+      });
     }, 300);
-    
   };
   //Sensor de Orientacion
   initOrientationSensor() 
   {
-    sensors.disableSensor();
-
-    sensors.enableSensor("ORIENTATION");
-    this.sensorName = "ORIENTATION";
     this.value = 0;
+    this.sensors.disableSensor();
+    this.sensorName = TYPE_SENSOR.ORIENTATION;
+    this.sensors.enableSensor(TYPE_SENSOR.ORIENTATION);
+
+
     setInterval(() => 
     {
-      sensors.getState((values) => { this.value = values; });
+      this.sensors.getState().then((resp) => 
+    {
+      console.log(resp);
+      this.value = resp;
+      }).catch((error) => 
+      {
+        console.log('Error', error);
+      });
     }, 300);
-    
   };
   //Sensor de Temperatura Ambiente
   initATemperatureSensor() 
   {
-    sensors.disableSensor();
-
-    sensors.enableSensor("AMBIENT_TEMPERATURE");
-    this.sensorName = "AMB_TEMPERATURE";
     this.value = 0;
+    this.sensors.disableSensor();
+    this.sensorName = TYPE_SENSOR.AMBIENT_TEMPERATURE;
+    this.sensors.enableSensor(TYPE_SENSOR.AMBIENT_TEMPERATURE);
+
+
     setInterval(() => 
     {
-      sensors.getState((values) => { this.value = values; });
-
+      this.sensors.getState().then((resp) => 
+    {
+      console.log(resp);
+      this.value = resp;
+      }).catch((error) => 
+      {
+        console.log('Error', error);
+      });
     }, 300);
-    
   };
   //Sensor de Proximidad
   initProximitySensor() 
   {
-    sensors.disableSensor();
 
-    sensors.enableSensor("PROXIMITY");
-    this.sensorName = "PROXIMITY";
     this.value = 0;
+    this.sensors.disableSensor();
+    this.sensorName = TYPE_SENSOR.PROXIMITY;
+    this.sensors.enableSensor(TYPE_SENSOR.PROXIMITY);
+
+
     setInterval(() => 
     {
-      sensors.getState((values) => { this.value = values; });
+      this.sensors.getState().then((resp) => 
+    {
+      console.log(resp);
+      this.value = resp;
+      }).catch((error) => 
+      {
+        console.log('Error', error);
+      });
     }, 300);
-    
   };
   //Sensor de Acelerometro
   initAccelerometerSensor() 
   {
-    sensors.disableSensor();
 
-    sensors.enableSensor("ACCELEROMETER");
-    this.sensorName = "ACCELEROMETER";
-    this.value = [];
+    this.value = 0;
+    this.sensors.disableSensor();
+    this.sensorName = TYPE_SENSOR.ACCELEROMETER;
+    this.sensors.enableSensor(TYPE_SENSOR.ACCELEROMETER);
+
+
     setInterval(() => 
     {
-      sensors.getState((values) => 
-      { 
-        this.value = values;
+      this.sensors.getState().then((resp) => 
+    {
+      console.log(resp);
+      this.value = resp;
+      }).catch((error) => 
+      {
+        console.log('Error', error);
       });
     }, 300);
-    
   };
   //Bateria
   initBatteryStatus()
@@ -127,15 +156,10 @@ export class HomePage {
   //Geolocation
   initGeolocation()
   {
-    // this.batteryStatus.onChange().subscribe(status => {
-    //   console.log(status)
-    //   this.stat = status
-    // });
     this.geolocation.getCurrentPosition().then((resp) => {
       console.log(resp);
       this.coords = resp;
-      // resp.coords.latitude
-      // resp.coords.longitude
+
      }).catch((error) => {
        console.log('Error getting location', error);
      });
