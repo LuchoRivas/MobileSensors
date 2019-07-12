@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <img [src]="logo">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button full (click)="initLightSensor()">LIGHT</button>
+  <button ion-button full (click)="initOrientationSensor()">ORIENTATION</button>
+  <button ion-button full (click)="initATemperatureSensor()">AMBIENT_TEMPERATURE</button>
+  <button ion-button full (click)="initProximitySensor()">PROXIMITY</button>
+  <button ion-button full (click)="initAccelerometerSensor()">ACCELEROMETER</button>
+  <button ion-button full (click)="initBatteryStatus()">BAT STATUS</button>
+  <button ion-button full (click)="initGeolocation()">GEOLOCATION</button>
+
+  <ion-card *ngIf="value">
+
+    <ion-card-header>Valor del Sensor {{sensorName}}</ion-card-header>
+    
+    <ion-list *ngFor="let item of value">
+      <p style="font-size: 16px;font-weight: bold; color:blue">{{item | number}}</p>
+    </ion-list>
+    
+  </ion-card>
+  <!-- BATERÍA -->
+  <ion-card *ngIf="stat">
+
+      <ion-card-header>Batería</ion-card-header>
+    
+      <ion-list>
+        <p style="font-size: 16px;font-weight: bold; color:blue">Carga: {{stat.level}}%</p>
+      </ion-list>
+      <ion-list>
+          <p style="font-size: 16px;font-weight: bold; color:blue">Enchufado: {{stat.isPlugged}}</p>
+      </ion-list>
+    
+  </ion-card>
+  <!-- COORDENADAS -->
+  <ion-card *ngIf="coords">
+
+    <ion-card-header>Geolocalización</ion-card-header>
+  
+    <ion-list>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Latitud: {{cords.coords.latitude}}</p>
+    </ion-list>
+    <ion-list>
+        <p style="font-size: 16px;font-weight: bold; color:blue">Longitud: {{cords.coords.longitude}}</p>
+    </ion-list>
+  
+</ion-card>
+</ion-content>

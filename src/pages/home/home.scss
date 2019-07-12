@@ -1,0 +1,30 @@
+page-home {
+
+}
+
+button{
+    background-color: #DC5019;
+}
+
+img{
+    height: 70px;
+    max-width: 100%;
+    border: 0;
+    display: block;
+    margin: 0 auto;
+}
+
+.button-md{
+    background-color: #DC5019;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.toolbar-background-md {
+    background: #FFF;
+}
+
+.button-md:hover:not(.disable-hover) {
+    background-color: #ffffff;
+    color: #000;
+}
