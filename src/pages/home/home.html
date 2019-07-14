@@ -15,17 +15,28 @@
   <button ion-button full (click)="initBatteryStatus()">BAT STATUS</button>
   <button ion-button full (click)="initGeolocation()">GEOLOCATION</button>
 
-  <ion-card *ngIf="value">
+  <ion-card *ngIf="model.data">
 
-    <ion-card-header>Valor del Sensor {{sensorName}}</ion-card-header>
+    <ion-card-header>Valor del Sensor {{model.Name}}</ion-card-header>
     
-    <ion-list *ngFor="let item of value">
+    <ion-list *ngFor="let item of model.data">
       <p style="font-size: 16px;font-weight: bold; color:blue">{{item | number}}</p>
     </ion-list>
+
+    <ion-list [hidden]="!model.data.Latitud">
+      <p>LATITUD!</p>
+    </ion-list>
+    
+    <!-- <ion-item *ngIf="model.data.Latitud" >
+      <p style="font-size: 16px;font-weight: bold; color:blue">Latitud: {{model.data.Latitud}}</p>
+    </ion-item>
+    <ion-item *ngIf="model.data.Longitud" >
+        <p style="font-size: 16px;font-weight: bold; color:blue">Longitud: {{model.data.Longitud}}</p>
+    </ion-item> -->
     
   </ion-card>
   <!-- BATERÍA -->
-  <ion-card *ngIf="stat">
+  <!-- <ion-card *ngIf="stat">
 
       <ion-card-header>Batería</ion-card-header>
     
@@ -36,18 +47,18 @@
           <p style="font-size: 16px;font-weight: bold; color:blue">Enchufado: {{stat.isPlugged}}</p>
       </ion-list>
     
-  </ion-card>
+  </ion-card> -->
   <!-- COORDENADAS -->
-  <ion-card *ngIf="coords">
+  <!-- <ion-card *ngIf="model.data.Longitud != undefined">
 
     <ion-card-header>Geolocalización</ion-card-header>
   
     <ion-list>
-      <p style="font-size: 16px;font-weight: bold; color:blue">Latitud: {{coords.coords.latitude}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Latitud: {{model.data.Latitud}}</p>
     </ion-list>
     <ion-list>
-        <p style="font-size: 16px;font-weight: bold; color:blue">Longitud: {{coords.coords.longitude}}</p>
+        <p style="font-size: 16px;font-weight: bold; color:blue">Longitud: {{model.data.Longitud}}</p>
     </ion-list>
   
-</ion-card>
+</ion-card> -->
 </ion-content>

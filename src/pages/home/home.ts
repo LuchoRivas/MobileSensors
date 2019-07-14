@@ -4,21 +4,17 @@ import { Platform } from 'ionic-angular';
 import { BatteryStatus } from '@ionic-native/battery-status';
 import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
-
-declare var sensors;
+import { sensorModel} from '../../Models/Sensors';
+import { stripGeneratedFileSuffix } from '@angular/compiler/src/aot/util';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  value: any;
-  sensorName : string;
-  error : any;
   logo:string;
-  stat:any;
-  coords:any;
+  model = new sensorModel();
+
 
   constructor(
     public navCtrl: NavController, 
@@ -28,7 +24,6 @@ export class HomePage {
     private geolocation:Geolocation
     ) 
     {
-      this.value;
       this.logo = "https://pluma.binit.cloud/assets/Binit/images/logos/logo.png"
     
     // platform.ready().then(() => {
@@ -39,131 +34,143 @@ export class HomePage {
   //Sensor de Luz
   initLightSensor() 
   {
-
-    this.value = 0;
+    this.model.data = 0;
     this.sensors.disableSensor();
-    this.sensorName = TYPE_SENSOR.LIGHT;
+    this.model.Name = "TYPE_SENSOR.LIGHT";
     this.sensors.enableSensor(TYPE_SENSOR.LIGHT);
 
-
-    setInterval(() => 
+    let interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
       console.log(resp);
-      this.value = resp;
+      this.model.data = resp;
       }).catch((error) => 
       {
         console.log('Error', error);
+        clearInterval(interval);
       });
     }, 300);
   };
   //Sensor de Orientacion
   initOrientationSensor() 
   {
-    this.value = 0;
+    this.model.data = 0;
     this.sensors.disableSensor();
-    this.sensorName = TYPE_SENSOR.ORIENTATION;
+    this.model.Name = "TYPE_SENSOR.ORIENTATION";
     this.sensors.enableSensor(TYPE_SENSOR.ORIENTATION);
 
-
-    setInterval(() => 
+    let interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
       console.log(resp);
-      this.value = resp;
+      this.model.data = resp;
       }).catch((error) => 
       {
         console.log('Error', error);
+        clearInterval(interval);
       });
     }, 300);
   };
   //Sensor de Temperatura Ambiente
   initATemperatureSensor() 
   {
-    this.value = 0;
+    this.model.data = 0;
     this.sensors.disableSensor();
-    this.sensorName = TYPE_SENSOR.AMBIENT_TEMPERATURE;
+    this.model.Name = "TYPE_SENSOR.AMBIENT_TEMPERATURE";
     this.sensors.enableSensor(TYPE_SENSOR.AMBIENT_TEMPERATURE);
 
-
-    setInterval(() => 
+    let interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
       console.log(resp);
-      this.value = resp;
+      this.model.data = resp;
       }).catch((error) => 
       {
         console.log('Error', error);
+        clearInterval(interval);
       });
     }, 300);
   };
   //Sensor de Proximidad
   initProximitySensor() 
   {
-
-    this.value = 0;
+    this.model.data = 0;
     this.sensors.disableSensor();
-    this.sensorName = TYPE_SENSOR.PROXIMITY;
+    this.model.Name = "TYPE_SENSOR.PROXIMITY";
     this.sensors.enableSensor(TYPE_SENSOR.PROXIMITY);
 
-
-    setInterval(() => 
+    let interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
       console.log(resp);
-      this.value = resp;
+      this.model.data = resp;
       }).catch((error) => 
       {
         console.log('Error', error);
+        clearInterval(interval);
       });
     }, 300);
   };
   //Sensor de Acelerometro
   initAccelerometerSensor() 
   {
-
-    this.value = 0;
+    this.model.data = 0;
     this.sensors.disableSensor();
-    this.sensorName = TYPE_SENSOR.ACCELEROMETER;
+    this.model.Name = "TYPE_SENSOR.ACCELEROMETER";
     this.sensors.enableSensor(TYPE_SENSOR.ACCELEROMETER);
 
-
-    setInterval(() => 
+    let interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
       console.log(resp);
-      this.value = resp;
+      this.model.data = resp;
       }).catch((error) => 
       {
         console.log('Error', error);
+        clearInterval(interval);
       });
     }, 300);
   };
   //Bateria
   initBatteryStatus()
   {
-    this.batteryStatus.onChange().subscribe(status => {
-      console.log(status)
-      this.stat = status
-    });
+    this.model.Name = "Batery";
+    this.sensors.disableSensor();
+    this.batteryStatus.onChange().subscribe(status => 
+      {
+        console.log(status)
+        this.model.data = 
+        {
+          Nivel : status.level,
+          Enchufado : (status.isPlugged == true? "Enchufado":"No Enchufado")
+        };
+      });
 
   }
   //Geolocation
   initGeolocation()
   {
-    this.geolocation.getCurrentPosition().then((resp) => {
+    if(this.model.data != null || this.model.data != undefined)
+      this.model.data = "";
+
+    this.model.Name = "Geolocation";
+    this.sensors.disableSensor();
+    this.geolocation.getCurrentPosition().then((resp) => 
+    {
       console.log(resp);
-      this.coords = resp;
+      this.model.data = {
+        Longitud : resp.coords.longitude,
+        Latitud : resp.coords.latitude
+      };
+      alert(this.model.data.Latitud +" "+ this.model.data.Longitud);
 
      }).catch((error) => {
        console.log('Error getting location', error);
      });
-     
-
   }
 }
