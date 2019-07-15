@@ -3,7 +3,7 @@ page-home {
 }
 
 button{
-    background-color: #DC5019;
+    background-color: #DC5019 !important;
 }
 
 img{
@@ -15,16 +15,16 @@ img{
 }
 
 .button-md{
-    background-color: #DC5019;
+    background-color: #DC5019 !important;
     border-radius: 10px;
     padding: 20px;
 }
 
 .toolbar-background-md {
-    background: #FFF;
+    background: #FFF ;
 }
 
 .button-md:hover:not(.disable-hover) {
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     color: #000;
 }

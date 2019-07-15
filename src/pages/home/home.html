@@ -19,9 +19,23 @@
 
     <ion-card-header>Valor del Sensor {{model.Name}}</ion-card-header>
     
-    <ion-list *ngFor="let item of model.data">
-      <p style="font-size: 16px;font-weight: bold; color:blue">{{item | number}}</p>
+    <ion-list [hidden]="model.data.length == 2">
+      <p style="font-size: 16px;font-weight: bold; color:blue">X: {{model.data[0] | number}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Y: {{model.data[1] | number}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Z: {{model.data[2] | number}}</p>
     </ion-list>
+
+    <ion-list [hidden]="model.data.length == 3">
+      <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data[0]}} : {{model.data[1] | number}}</p>
+    </ion-list>
+
+    <!-- <ion-list [hidden]="!model.data.Celcius">
+      <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data.Celcius | number}}</p>
+    </ion-list>
+
+    <ion-list [hidden]="!model.data.Proximidad">
+      <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data.Proximidad | number}}</p>
+    </ion-list> -->
 
     <ion-list [hidden]="!model.data.Latitud">
       <p>LATITUD!</p>

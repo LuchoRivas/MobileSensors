@@ -14,9 +14,11 @@ import { stripGeneratedFileSuffix } from '@angular/compiler/src/aot/util';
 export class HomePage {
   logo:string;
   model = new sensorModel();
+  interval;
 
 
   constructor(
+    
     public navCtrl: NavController, 
     platform: Platform, 
     private batteryStatus: BatteryStatus, 
@@ -25,120 +27,171 @@ export class HomePage {
     ) 
     {
       this.logo = "https://pluma.binit.cloud/assets/Binit/images/logos/logo.png"
-    
+      
     // platform.ready().then(() => {
     //   this.initSensor();
     // })
   }
 
-  //Sensor de Luz
+  //Sensor de Luz - retorna (Array) un valor único en lumenes
   initLightSensor() 
   {
-    this.model.data = 0;
+    if(this.model.data != null || this.model.data != undefined)
+      this.model = new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+      
+    //this.model.data = 0;
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.LIGHT";
     this.sensors.enableSensor(TYPE_SENSOR.LIGHT);
 
-    let interval = setInterval(() => 
+    this.interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
-      console.log(resp);
-      this.model.data = resp;
+      this.model.data = 
+      [
+        "Lumenes",
+        resp[0]
+      ];
+      console.log(this.model.data.length);
       }).catch((error) => 
       {
         console.log('Error', error);
-        clearInterval(interval);
+        clearInterval(this.interval);
       });
     }, 300);
   };
-  //Sensor de Orientacion
+  //Sensor de Orientacion - retorna (Array) con 3 valores x-y-z
   initOrientationSensor() 
   {
-    this.model.data = 0;
+    if(this.model.data != null || this.model.data != undefined)
+      this.model =  new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+    // this.model.data = 0;
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.ORIENTATION";
     this.sensors.enableSensor(TYPE_SENSOR.ORIENTATION);
 
-    let interval = setInterval(() => 
+    this.interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
-      console.log(resp);
-      this.model.data = resp;
+      this.model.data = 
+      [
+        resp[0],
+        resp[1],
+        resp[2] 
+      ];
+      console.log(this.model.data.length);
       }).catch((error) => 
       {
         console.log('Error', error);
-        clearInterval(interval);
+        clearInterval(this.interval);
       });
     }, 300);
   };
-  //Sensor de Temperatura Ambiente
+  //Sensor de Temperatura Ambiente - retorna (Array) un valor único en celcius
   initATemperatureSensor() 
   {
-    this.model.data = 0;
+    if(this.model.data != null || this.model.data != undefined)
+      this.model =  new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+    // this.model.data = 0;
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.AMBIENT_TEMPERATURE";
     this.sensors.enableSensor(TYPE_SENSOR.AMBIENT_TEMPERATURE);
 
-    let interval = setInterval(() => 
+    this.interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
-      console.log(resp);
-      this.model.data = resp;
+      this.model.data = 
+      [
+        "Celsius",
+        resp[0]
+      ];
+      console.log(this.model.data.length);
       }).catch((error) => 
       {
         console.log('Error', error);
-        clearInterval(interval);
+        clearInterval(this.interval);
       });
     }, 300);
   };
-  //Sensor de Proximidad
+  //Sensor de Proximidad - retorna (Array) un valor único en cm
   initProximitySensor() 
   {
-    this.model.data = 0;
+    if(this.model.data != null || this.model.data != undefined)
+      this.model =  new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+    //this.model.data = 0;
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.PROXIMITY";
     this.sensors.enableSensor(TYPE_SENSOR.PROXIMITY);
 
-    let interval = setInterval(() => 
+    this.interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
-      console.log(resp);
-      this.model.data = resp;
+      this.model.data = 
+      [
+        "Cm",
+        resp[0]
+      ];
+      console.log(this.model.data.length);
       }).catch((error) => 
       {
         console.log('Error', error);
-        clearInterval(interval);
+        clearInterval(this.interval);
       });
     }, 300);
   };
   //Sensor de Acelerometro
   initAccelerometerSensor() 
   {
-    this.model.data = 0;
+    if(this.model.data != null || this.model.data != undefined)
+      this.model =  new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+    //this.model.data = 0;
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.ACCELEROMETER";
     this.sensors.enableSensor(TYPE_SENSOR.ACCELEROMETER);
 
-    let interval = setInterval(() => 
+    this.interval = setInterval(() => 
     {
       this.sensors.getState().then((resp) => 
     {
-      console.log(resp);
-      this.model.data = resp;
+      this.model.data = 
+      [
+        resp[0],
+        resp[1],
+        resp[2] 
+      ];
+      console.log(this.model.data.length);
       }).catch((error) => 
       {
         console.log('Error', error);
-        clearInterval(interval);
+        clearInterval(this.interval);
       });
     }, 300);
   };
   //Bateria
   initBatteryStatus()
   {
+    if(this.model.data != null || this.model.data != undefined)
+      this.model = new sensorModel();
+
     this.model.Name = "Batery";
     this.sensors.disableSensor();
     this.batteryStatus.onChange().subscribe(status => 
@@ -156,7 +209,7 @@ export class HomePage {
   initGeolocation()
   {
     if(this.model.data != null || this.model.data != undefined)
-      this.model.data = "";
+      this.model =  new sensorModel();
 
     this.model.Name = "Geolocation";
     this.sensors.disableSensor();
