@@ -44,7 +44,7 @@ export class HomePage {
       
     //this.model.data = 0;
     this.sensors.disableSensor();
-    this.model.Name = "TYPE_SENSOR.LIGHT";
+    this.model.Name = "LIGHT";
     this.sensors.enableSensor(TYPE_SENSOR.LIGHT);
 
     this.interval = setInterval(() => 
@@ -74,7 +74,7 @@ export class HomePage {
       clearInterval(this.interval);
     // this.model.data = 0;
     this.sensors.disableSensor();
-    this.model.Name = "TYPE_SENSOR.ORIENTATION";
+    this.model.Name = "ORIENTATION";
     this.sensors.enableSensor(TYPE_SENSOR.ORIENTATION);
 
     this.interval = setInterval(() => 
@@ -105,7 +105,7 @@ export class HomePage {
       clearInterval(this.interval);
     // this.model.data = 0;
     this.sensors.disableSensor();
-    this.model.Name = "TYPE_SENSOR.AMBIENT_TEMPERATURE";
+    this.model.Name = "AMBIENT_TEMPERATURE";
     this.sensors.enableSensor(TYPE_SENSOR.AMBIENT_TEMPERATURE);
 
     this.interval = setInterval(() => 
@@ -135,7 +135,7 @@ export class HomePage {
       clearInterval(this.interval);
     //this.model.data = 0;
     this.sensors.disableSensor();
-    this.model.Name = "TYPE_SENSOR.PROXIMITY";
+    this.model.Name = "PROXIMITY";
     this.sensors.enableSensor(TYPE_SENSOR.PROXIMITY);
 
     this.interval = setInterval(() => 
@@ -165,7 +165,7 @@ export class HomePage {
       clearInterval(this.interval);
 
     this.sensors.disableSensor();
-    this.model.Name = "TYPE_SENSOR.ACCELEROMETER";
+    this.model.Name = "ACCELEROMETER";
     this.sensors.enableSensor(TYPE_SENSOR.ACCELEROMETER);
 
     this.interval = setInterval(() => 
