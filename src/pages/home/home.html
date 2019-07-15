@@ -25,7 +25,7 @@
       <p style="font-size: 16px;font-weight: bold; color:blue">Z: {{model.data[2] | number}}</p>
     </ion-list>
 
-    <ion-list [hidden]="model.data.length == 3">
+    <ion-list [hidden]="model.data.length == 3 && model">
       <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data[0]}} : {{model.data[1] | number}}</p>
     </ion-list>
 
@@ -37,8 +37,9 @@
       <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data.Proximidad | number}}</p>
     </ion-list> -->
 
-    <ion-list [hidden]="!model.data.Latitud">
-      <p>LATITUD!</p>
+    <ion-list [hidden]="model.data.length == 0">
+      <p style="font-size: 16px;font-weight: bold; color:blue" [hidden]="!model.data.Latitud">Latitud: {{model.data.Latitud}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue"[hidden]="!model.data.Longitud">Longitud: {{model.data.Longitud}}</p>
     </ion-list>
     
     <!-- <ion-item *ngIf="model.data.Latitud" >

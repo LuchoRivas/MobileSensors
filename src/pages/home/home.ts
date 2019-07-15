@@ -4,7 +4,7 @@ import { Platform } from 'ionic-angular';
 import { BatteryStatus } from '@ionic-native/battery-status';
 import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
-import { sensorModel} from '../../Models/Sensors';
+import { sensorModel } from '../../Models/Sensors';
 import { stripGeneratedFileSuffix } from '@angular/compiler/src/aot/util';
 
 @Component({
@@ -163,7 +163,7 @@ export class HomePage {
 
     if(this.interval != undefined)
       clearInterval(this.interval);
-    //this.model.data = 0;
+
     this.sensors.disableSensor();
     this.model.Name = "TYPE_SENSOR.ACCELEROMETER";
     this.sensors.enableSensor(TYPE_SENSOR.ACCELEROMETER);
@@ -186,13 +186,16 @@ export class HomePage {
       });
     }, 300);
   };
-  //Bateria
+  //Bateria devuelve un objecto con data
   initBatteryStatus()
   {
     if(this.model.data != null || this.model.data != undefined)
       this.model = new sensorModel();
 
-    this.model.Name = "Batery";
+    if(this.interval != undefined)
+      clearInterval(this.interval);
+
+    this.model.Name = "Battery";
     this.sensors.disableSensor();
     this.batteryStatus.onChange().subscribe(status => 
       {
@@ -203,13 +206,15 @@ export class HomePage {
           Enchufado : (status.isPlugged == true? "Enchufado":"No Enchufado")
         };
       });
-
   }
-  //Geolocation
+  //Geolocation devuelve un objeto con latitud y longitud
   initGeolocation()
   {
     if(this.model.data != null || this.model.data != undefined)
       this.model =  new sensorModel();
+
+    if(this.interval != undefined)
+      clearInterval(this.interval);
 
     this.model.Name = "Geolocation";
     this.sensors.disableSensor();
