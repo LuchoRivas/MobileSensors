@@ -199,12 +199,13 @@ export class HomePage {
     this.sensors.disableSensor();
     this.batteryStatus.onChange().subscribe(status => 
       {
-        console.log(status)
+        
         this.model.data = 
         {
           Nivel : status.level,
           Enchufado : (status.isPlugged == true? "Enchufado":"No Enchufado")
         };
+        console.log(this.model.data);
       });
   }
   //Geolocation devuelve un objeto con latitud y longitud

@@ -19,13 +19,13 @@
 
     <ion-card-header>Valor del Sensor {{model.Name}}</ion-card-header>
     
-    <ion-list [hidden]="model.Name == 'LIGHT' || model.Name == 'AMBIENT_TEMPERATURE' || model.Name == 'PROXIMITY' || model.Name == 'Geolocation'">
+    <ion-list [hidden]="model.Name == 'LIGHT' || model.Name == 'AMBIENT_TEMPERATURE' || model.Name == 'PROXIMITY' || model.Name == 'Geolocation' || model.Name == 'Battery'">
       <p style="font-size: 16px;font-weight: bold; color:blue">X: {{model.data[0] | number}}</p>
       <p style="font-size: 16px;font-weight: bold; color:blue">Y: {{model.data[1] | number}}</p>
       <p style="font-size: 16px;font-weight: bold; color:blue">Z: {{model.data[2] | number}}</p>
     </ion-list>
 
-    <ion-list [hidden]="model.Name == 'ORIENTATION' || model.Name == 'ACCELEROMETER' || model.Name == 'Geolocation'">
+    <ion-list [hidden]="model.Name == 'ORIENTATION' || model.Name == 'ACCELEROMETER' || model.Name == 'Geolocation' || model.Name == 'Battery'">
       <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data[0]}} : {{model.data[1] | number}}</p>
     </ion-list>
 
@@ -37,9 +37,14 @@
       <p style="font-size: 16px;font-weight: bold; color:blue">{{model.data.Proximidad | number}}</p>
     </ion-list> -->
 
-    <ion-list [hidden]="model.data.Latitud == undefined">
-      <p style="font-size: 16px;font-weight: bold; color:blue" [hidden]="model.data.Latitud == undefined">Latitud: {{model.data.Latitud}}</p>
-      <p style="font-size: 16px;font-weight: bold; color:blue"[hidden]="model.data.Longitud == undefined">Longitud: {{model.data.Longitud}}</p>
+    <ion-list [hidden]="model.Name == 'LIGHT' || model.Name == 'AMBIENT_TEMPERATURE' || model.Name == 'PROXIMITY' || model.Name == 'ORIENTATION' || model.Name == 'ACCELEROMETER' || model.Name == 'Battery'">
+      <p style="font-size: 16px;font-weight: bold; color:blue">Latitud: {{model.data.Latitud}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Longitud: {{model.data.Longitud}}</p>
+    </ion-list>
+
+    <ion-list [hidden]="model.Name == 'LIGHT' || model.Name == 'AMBIENT_TEMPERATURE' || model.Name == 'PROXIMITY' || model.Name == 'ORIENTATION' || model.Name == 'ACCELEROMETER' || model.Name == 'Geolocation'">
+      <p style="font-size: 16px;font-weight: bold; color:blue">Carga: {{model.data.Nivel}}</p>
+      <p style="font-size: 16px;font-weight: bold; color:blue">Enchufado: {{model.data.Enchufado}}</p>
     </ion-list>
     
     <!-- <ion-item *ngIf="model.data.Latitud" >
